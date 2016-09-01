@@ -1,5 +1,6 @@
 package lyons.db;
 /**
+ * 链接数据库
  * @author Lyons
  */
 import java.sql.Connection;

@@ -3,7 +3,7 @@ package lyons.entity;
 import java.io.Serializable;
 
 /**
- * ÓÃ»§×¢²áÊµÌåÀà
+ * 用户注册实体类
  * @author Lyons(zhagnlei)
  *
  */
@@ -16,7 +16,7 @@ public class Register implements Serializable
 	private String phone;
 	private String address;
 	private String realname;
-	private String backNews = "Çë×¢²á";
+	private String backNews = "请注册";
 
 	public Register()
 	{

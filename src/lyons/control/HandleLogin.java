@@ -21,14 +21,14 @@ import lyons.db.DbConn;
 import lyons.entity.Login;
 
 /**
- * µÇÂ½´¦Àí
+ * 登陆处理
  * @author Lyons(zhanglei)
  *
  */
 
 public class HandleLogin extends HttpServlet 
 {
-	private static final long serialVersionUID = 1L; //ÉèÖÃÐòÁÐºÅ
+	private static final long serialVersionUID = 1L; //设置序列号
 	public HandleLogin()
 	{
 		super();
@@ -52,14 +52,14 @@ public class HandleLogin extends HttpServlet
 	{
 
 		response.setContentType("text/html;charset=UTF-8");
-		request.setCharacterEncoding("UTF-8");//servletÖÐÒ²Òª´ËÏî£¬·ñÔòÈ¡ÖµÂÒÂë
+		request.setCharacterEncoding("UTF-8");//servlet中也要此项，否则取值乱码
 		String username = "";
 		String userpass = "";
 		String cookies  = "";
 		username = request.getParameter("username");
 		userpass = request.getParameter("userpass");
 		cookies = request.getParameter("isCookie");
-		handleCookies(request,response,username,userpass,cookies);//´¦ÀícookiesÐÅÏ¢
+		handleCookies(request,response,username,userpass,cookies);//处理cookies信息
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -76,17 +76,17 @@ public class HandleLogin extends HttpServlet
 			rs = pstmt.executeQuery();
 			if (rs.next())
 			{
-				//µÇÂ½³É¹¦
+				//登陆成功
 				success(request,response,username);
 				request.getRequestDispatcher("/jsp/join/landing.jsp").forward(request, response);
 			}else 
 				{
-					String backNews = "ÓÃ»§Ãû»òÕßÃÜÂë´íÎó";
+					String backNews = "用户名或者密码错误";
 					fail(request, response, backNews);
 				}
 		} catch (SQLException e)
 		{
-			String backNews = "µÇÂ¼Ê§°Ü"+e;
+			String backNews = "登录失败"+e;
 			fail(request, response, backNews);
 		}finally
 			{
@@ -95,7 +95,7 @@ public class HandleLogin extends HttpServlet
 	}
 	
 	/**
-	 * ´¦ÀíÓÃ»§cookiesÐÅÏ¢
+	 * 处理用户cookies信息
 	 * @param request
 	 * @param response
 	 * @param username
@@ -104,23 +104,23 @@ public class HandleLogin extends HttpServlet
 	public void handleCookies(HttpServletRequest request,HttpServletResponse response, 
 			String name,String pass,String isCookie)throws ServletException, IOException
 	{
-		if ("isCookie".equals(isCookie))//ÓÃ»§Ñ¡ÔñÁË¼Ç×¡ÃÜÂë
+		if ("isCookie".equals(isCookie))//用户选择了记住密码
 		{
-			String username = URLEncoder.encode(name,"UTF-8");//±àÂë£¬½â¾öcookieÎÞ·¨±£´æ×Ö·û´®µÄÎÊÌâ
+			String username = URLEncoder.encode(name,"UTF-8");//编码，解决cookie无法保存字符串的问题
 			String userpass = URLEncoder.encode(pass,"UTF-8");
 			
-			Cookie nameCookie = new Cookie("username",username );//ÉèÖÃÓëµÇÂ½Ê±µÄname¶ÔÓ¦µÄ¼üÖµ¶Ô
+			Cookie nameCookie = new Cookie("username",username );//设置与登陆时的name对应的键值对
 			Cookie passCookie = new Cookie("userpass",userpass );
 			
-			nameCookie.setPath("/");//ÉèÖÃµÄcookieµÄ´æ´¢Â·¾¶ºÜÖØÒª£¬²»È»È¡²»µ½Öµ
+			nameCookie.setPath("/");//设置的cookie的存储路径很重要，不然取不到值
 			passCookie.setPath("/");
-			nameCookie.setMaxAge(864000); //ÉèÖÃÉúÃüÆÚÏÞÊ®Ìì µ¥Î»Ãë
+			nameCookie.setMaxAge(864000); //设置生命期限十天 单位秒
 			passCookie.setMaxAge(864000);
-			response.addCookie(nameCookie); //±£´æÐÅÏ¢
+			response.addCookie(nameCookie); //保存信息
 			response.addCookie(passCookie); 
 		}else 
 			{
-			//ÓÃ»§Î´Ñ¡Ôñ¼Ç×¡ÃÜÂë£¬É¾³ýä¯ÀÀÆ÷ÖÐ¿ÉÄÜ´æÔÚµÄcookie
+			//用户未选择记住密码，删除浏览器中可能存在的cookie
 				Cookie[] cookies = null;
 				cookies = request.getCookies();
 				if (cookies!=null&&cookies.length>0)
@@ -129,8 +129,8 @@ public class HandleLogin extends HttpServlet
 					{
 						if ("username".equals(c.getName())||"userpass".equals(c.getName()))
 						{
-							c.setMaxAge(0);//ÉèÖÃcookieÊ§Ð§
-							c.setPath("/");//Îñ±ØÉèÖÃ
+							c.setMaxAge(0);//设置cookie失效
+							c.setPath("/");//务必设置
 							response.addCookie(c);
 						}
 					}
@@ -139,7 +139,7 @@ public class HandleLogin extends HttpServlet
 	}
 	
 	/**
-	 * µÇÂ½³É¹¦£¬´¢´æÓÃ»§ÐÅÏ¢
+	 * 登陆成功，储存用户信息
 	 */
 	public void success(HttpServletRequest request,
 			HttpServletResponse response, String username)
@@ -149,35 +149,35 @@ public class HandleLogin extends HttpServlet
 		
 		try
 		{
-			loginBean = (Login) session.getAttribute("loginBean");//»ñÈ¡sessionÖÐ¿ÉÄÜ´æÔÚµÄloginBean¶ÔÏó
+			loginBean = (Login) session.getAttribute("loginBean");//获取session中可能存在的loginBean对象
 			if (loginBean == null)
 			{
 				loginBean = new Login();
-				session.setAttribute("loginBean", loginBean);//×¢Òâjsp»ñÈ¡Ê±ÐèÒªÓÃµ½¸ÃnameµÄÊôÐÔÃû×Ö
-				session.setMaxInactiveInterval(600);//Ê®·ÖÖÓµÄ´æ»îÆÚ µ¥Î»£ºÃë
+				session.setAttribute("loginBean", loginBean);//注意jsp获取时需要用到该name的属性名字
+				session.setMaxInactiveInterval(600);//十分钟的存活期 单位：秒
 				loginBean = (Login) session.getAttribute("loginBean");
 			}
 			
 			String name = loginBean.getUsername();
 			if (username.equals(name))
 			{
-				loginBean.setBackNews(username + "ÄúÒÑµÇÂ½£¬ÎÞÐèÔÙ´ÎµÇÂ¼");
+				loginBean.setBackNews(username + "您已登陆，无需再次登录");
 				loginBean.setUsername(username);
 			} else
 				{
-					loginBean.setBackNews(username + "µÇÂ½³É¹¦");
+					loginBean.setBackNews(username + "登陆成功");
 					loginBean.setUsername(username);
 				}
 		} catch (Exception e)
 		{
-			String backNews = "µÇÂ¼Ê§°Ü"+e;
+			String backNews = "登录失败"+e;
 			fail(request, response, backNews);
 		}
 	
 	}
 	
 	/**
-	 * µÇÂ½Ê§°Ü
+	 * 登陆失败
 	 */
 	public void fail(HttpServletRequest request,
 			HttpServletResponse response,String backNews)
@@ -186,7 +186,7 @@ public class HandleLogin extends HttpServlet
 		{
 			PrintWriter out = response.getWriter();
 			out.print(backNews+"<br>");
-			out.print("·µ»Ø"+"<a href=/lyons.eaby/jsp/join/login.jsp>µÇÂ½½çÃæ</a>");
+			out.print("返回"+"<a href=/lyons.eaby/jsp/join/login.jsp>登陆界面</a>");
 		} catch (IOException e)
 		{
 			e.printStackTrace();

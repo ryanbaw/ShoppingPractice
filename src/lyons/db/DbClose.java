@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class DbClose
 {
 	/*
-	 * ¹Ø±ÕµÇÂ¼×ÊÔ´
+	 * 关闭登录资源
 	 */
 	public static void allClose(PreparedStatement pstmt,ResultSet rs,Connection conn)
 	{
@@ -45,7 +45,7 @@ public class DbClose
 	}
 	
 	/*
-	 * ¹Ø±ÕÔö¡¢É¾¡¢¸Ä×ÊÔ´¡£
+	 * 关闭增、删、改资源。
 	 */
 	public static void close(PreparedStatement pstmt,Connection conn)
 	{

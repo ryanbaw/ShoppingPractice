@@ -16,7 +16,7 @@ import lyons.entity.Register;
 
 
 /**
- * ×¢²á´¦Àí
+ * 注册处理
  * @author Lyons(zhanglei)
  *
  */
@@ -84,11 +84,11 @@ public class HandleRegister extends HttpServlet
 		String regex = "[\\d]{11}";
 		if (!(again_userpass.equals(userpass)))
 		{
-			userBean.setBackNews("Á½´ÎÃÜÂë²»Ò»ÖÂ,×¢²áÊ§°Ü");
+			userBean.setBackNews("两次密码不一致,注册失败");
 			request.getRequestDispatcher("/jsp/join/register.jsp").forward(request, response);
 		}else if (phone!=null&&phone.length()>0&&!phone.matches(regex)) 
 				{
-						userBean.setBackNews("ÇëÕýÈ·ÌîÐ´11Î»ÊÖ»úºÅ");
+						userBean.setBackNews("请正确填写11位手机号");
 						request.getRequestDispatcher("/jsp/join/register.jsp").forward(request, response);
 						return;
 				}else 
@@ -117,14 +117,14 @@ public class HandleRegister extends HttpServlet
 								int rs = pstmt.executeUpdate();
 								if (rs > 0)
 								{
-									backNews = "×¢²á³É¹¦";
+									backNews = "注册成功";
 									userBean.setBackNews(backNews);
 									request.getRequestDispatcher("/jsp/join/registerSuccess.jsp").forward(request, response);
 								}
 							} catch (SQLException e)
 							{
 							    System.out.println(e);
-								backNews = "¸ÃÓÃ»§ÃûÒÑ±»×¢²á"+"<br>";
+								backNews = "该用户名已被注册"+"<br>";
 								userBean.setBackNews(backNews);
 								request.getRequestDispatcher("/jsp/join/register.jsp").forward(request, response);
 							}finally
@@ -133,7 +133,7 @@ public class HandleRegister extends HttpServlet
 							}
 						}else 
 						{
-							userBean.setBackNews("ÃÜÂë²»ºÏ·¨");
+							userBean.setBackNews("密码不合法");
 							request.getRequestDispatcher("/jsp/join/register.jsp").forward(request, response);
 						}
 					}

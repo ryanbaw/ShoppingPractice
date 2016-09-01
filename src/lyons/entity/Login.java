@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
- * ÓÃ»§µÇÂ½ÊµÌåÀà
+ * 用户登陆实体类
  * @author Lyons(zhanglei)
  *
  */
@@ -13,8 +13,8 @@ public class Login implements Serializable
 {
 	private static final long serialVersionUID = -69203680249861342L;
 	private String username = "";
-	private String backNews = "Î´µÇÂ¼";
-	private LinkedList<String> car = null;      //¹ºÎï³µ¡¢¶¨µ¥
+	private String backNews = "未登录";
+	private LinkedList<String> car = null;      //购物车、定单
 	
 	
 	public Login()

@@ -13,11 +13,11 @@ import lyons.entity.Login;
 
 /**
  * 
- * ´¦ÀíÉ¾³ý ¹ºÎï³µ ÉÌÆ·
+ * 处理删除 购物车 商品
  * 
  * @author  Lyons(zhanglei)
- * @version  [°æ±¾ºÅ, 2016 5 11]
- * @since  [Ó¦ÓÃ/°æ±¾]
+ * @version  [版本号, 2016 5 11]
+ * @since  [应用/版本]
  */
 public class DeleteGoodsFromCar extends HttpServlet
 {
@@ -59,7 +59,7 @@ public class DeleteGoodsFromCar extends HttpServlet
         request.setCharacterEncoding("UTF-8");
         int deleteID = -1;
         deleteID =  Integer.parseInt(request.getParameter("ID"));
-        System.out.println("É¾³ýÊý×éÏÂ±êÎª£º"+deleteID);
+        System.out.println("删除数组下标为："+deleteID);
         
         HttpSession session = request.getSession(true);
         Login loginBean = (Login)session.getAttribute("loginBean");

@@ -4,11 +4,11 @@ import java.util.Date;
 
 /**
  * 
- * ¶©µ¥ÊµÌåÀà
+ * 订单实体类
  * 
  * @author  Lyons(zhanglei)
- * @version  [°æ±¾ºÅ, 2016 6 3]
- * @since  [Ó¦ÓÃ/°æ±¾]
+ * @version  [版本号, 2016 6 3]
+ * @since  [应用/版本]
  */
 public class OrderForm
 {
@@ -17,7 +17,7 @@ public class OrderForm
     private Date orderDate = null;
     private String commodity_name = "";
     private double commodity_price = 0.00;
-    private int sum = 0;                    //×ÜÊý
+    private int sum = 0;                    //总数
     
     public OrderForm(){}
     

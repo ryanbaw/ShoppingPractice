@@ -59,7 +59,7 @@ public class GoodsDao extends HttpServlet
 		String value = "";
 		value = request.getParameter("key");
 		int key = Integer.parseInt(value);
-		System.out.println("¼ì²âÊÇ·ñÓÐkey:"+key);
+		System.out.println("检测是否有key:"+key);
 		
 		String keyWord = "";
 		keyWord = request.getParameter("keyWord");
@@ -73,11 +73,11 @@ public class GoodsDao extends HttpServlet
 	}
 	
 	/**
-	 * ÉÌÆ·²éÑ¯
+	 * 商品查询
 	 * @param request
 	 * @param response
-	 * @param key ²éÑ¯µÄÌõ¼þ/int:4(¼òµ¥²éÑ¯)
-	 * @return ÉÌÆ·ÐÅÏ¢Êý×é
+	 * @param key 查询的条件/int:4(简单查询)
+	 * @return 商品信息数组
 	 * @throws ServletException
 	 * @throws IOException
 	 */
@@ -86,7 +86,7 @@ public class GoodsDao extends HttpServlet
 	{
 	    response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        CachedRowSetImpl rowSet = null;//ÐÐ¼¯¶ÔÏó
+        CachedRowSetImpl rowSet = null;//行集对象
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -114,15 +114,15 @@ public class GoodsDao extends HttpServlet
 //		    orderForm = new OrderForm();
 //		    session.setAttribute("orderForm", orderForm);
 //		}
-		  //ÅÐ¶ÏÓÃ»§ÊÇ·ñµÇÂ½
+		  //判断用户是否登陆
 		  String user = "";
-          user = username.getUsername();//µÇÂ½ÕßµÄÓÃ»§Ãû
-          System.out.println("ÎÒÊÇÓÃ»§£º"+user);
+          user = username.getUsername();//登陆者的用户名
+          System.out.println("我是用户："+user);
           if (user.equals("userNull"))
           {
               out.print("<br>");
-              out.print("<center><font color=#008B8B> µÇÂ½Ö®ºó²ÅÄÜ¿´¶©µ¥Å¶  </font>");
-              out.print("<a href=/lyons.eaby/jsp/join/login.jsp><font color=red size=6>µÇÂ½</font></a></center>");
+              out.print("<center><font color=#008B8B> 登陆之后才能看订单哦  </font>");
+              out.print("<a href=/lyons.eaby/jsp/join/login.jsp><font color=red size=6>登陆</font></a></center>");
               return;
           }
 		
@@ -131,7 +131,7 @@ public class GoodsDao extends HttpServlet
 		switch (key)
 		{
 			case 1:
-					/*//	key=1ÉÌÆ· ÊýÁ¿ ÉýÐò²éÑ¯
+					/*//	key=1商品 数量 升序查询
 					String sqlGnum = "SELECT * FROM GOODS ORDER BY GNUM ASC";
 					try
 					{
@@ -150,7 +150,7 @@ public class GoodsDao extends HttpServlet
 							}*/
 				break;
 			case 2:
-        			  //key=2 °´ÕÕ¹Ø¼ü×Ö²éÑ¯ ÉÌÆ·ÐÅÏ¢
+        			  //key=2 按照关键字查询 商品信息
                       
                         String sqlShowGoodsByKey =  
                         "select * from commodity WHERE commodity_name LIKE '%'||?||'%'";
@@ -159,34 +159,34 @@ public class GoodsDao extends HttpServlet
                             pstmt = conn.prepareStatement(sqlShowGoodsByKey);
                             pstmt.setString(1, keyWord);
                             rs = pstmt.executeQuery();
-                            System.out.println("--2²é¿´¶©µ¥Ö´ÐÐÊý¾Ý¿â²Ù×÷--");
+                            System.out.println("--2查看订单执行数据库操作--");
                             if(rs.next())
                             {
-                                rs = pstmt.executeQuery();//ÖØÐÂ²éÑ¯µÄÔ­ÒòÊÇrs.nextÊ±¹â±êÆ«ÒÆºó£¬¶ªµô¼ÇÂ¼¡£
+                                rs = pstmt.executeQuery();//重新查询的原因是rs.next时光标偏移后，丢掉记录。
                                 rowSet = new CachedRowSetImpl();
                                 rowSet.populate(rs); 
                                 goods.setRowSet(rowSet);
-                                System.out.println("2ÒÑ¾­´ÓÊý¾Ý¿âÖÐ»ñÈ¡µ½Öµ£¬²¢Èû½øÐÐ¼¯");
+                                System.out.println("2已经从数据库中获取到值，并塞进行集");
                                 request.getRequestDispatcher("/jsp/browse/showGoods.jsp").forward(request, response);
                             }else 
                                 {
                                     out.print("<br><br><br><center>");
-                                    out.print("<font color=green> Ç×,²éÑ¯³ö´íÀ².¸ü»»¹Ø¼ü×ÖÔÙ´Î </font>");
-                                    out.print("<a href=/lyons.eaby/jsp/browse/searchByKeyWord.jsp><font color=red size=6>²éÑ¯</font></a>");
+                                    out.print("<font color=green> 亲,查询出错啦.更换关键字再次 </font>");
+                                    out.print("<a href=/lyons.eaby/jsp/browse/searchByKeyWord.jsp><font color=red size=6>查询</font></a>");
                                     out.print("</center>");     
                                 }
                         } catch (SQLException e)
                         {
-                            System.out.println("key=3²é¿´¶©µ¥Òì³££º"+e);
+                            System.out.println("key=3查看订单异常："+e);
                             
                         }finally
                                 {
-                                    System.out.println("²é¿´¶©µ¥Ö´ÐÐ¹Ø±ÕÁ÷");
+                                    System.out.println("查看订单执行关闭流");
                                     DbClose.allClose(pstmt, rs, conn);
                                 }
         				break;
 			case 3:
-                    //key=3 °´ÕÕµÇÂ¼ÈË²éÑ¯¶©µ¥ ÉÌÆ·Ãû×Ö+ÊýÁ¿
+                    //key=3 按照登录人查询订单 商品名字+数量
 			      
                     String sqlOrder= 
                     "select commodity_name,sum(sum) from orderform where username=? group by commodity_name having sum(sum)>0";
@@ -195,55 +195,55 @@ public class GoodsDao extends HttpServlet
                         pstmt = conn.prepareStatement(sqlOrder);
                         pstmt.setString(1, user);
                         rs = pstmt.executeQuery();
-                        System.out.println("--²é¿´¶©µ¥Ö´ÐÐÊý¾Ý¿â²Ù×÷--");
+                        System.out.println("--查看订单执行数据库操作--");
                         if(rs.next())
                         {
-                            rs = pstmt.executeQuery();//ÖØÐÂ²éÑ¯µÄÔ­ÒòÊÇrs.nextÊ±¹â±êÆ«ÒÆºó£¬¶ªµô¼ÇÂ¼¡£
+                            rs = pstmt.executeQuery();//重新查询的原因是rs.next时光标偏移后，丢掉记录。
                             rowSet = new CachedRowSetImpl();
                             rowSet.populate(rs); 
                             goods.setRowSet(rowSet);
-                            System.out.println("3ÒÑ¾­´ÓÊý¾Ý¿âÖÐ»ñÈ¡µ½Öµ£¬²¢Èû½øÐÐ¼¯");
+                            System.out.println("3已经从数据库中获取到值，并塞进行集");
                             request.getRequestDispatcher("/jsp/order/lookOrderForm.jsp").forward(request, response);
                         }else 
                             {
                                 out.print("<br><br><br><center>");
-                                out.print("<font color=green> Ç×,¶©µ¥ÊÇ¿ÕµÄÄØ </font>");
+                                out.print("<font color=green> 亲,订单是空的呢 </font>");
                                 out.print("<a href=/lyons.eaby/lyons.dao/GoodsDao?key=4><font color=red size=6>Go Shopping</font></a>");
                                 out.print("</center>");		
                             }
                     } catch (SQLException e)
                     {
-                        System.out.println("key=3²é¿´¶©µ¥Òì³££º"+e);
+                        System.out.println("key=3查看订单异常："+e);
                         
                     }finally
                             {
-                                System.out.println("²é¿´¶©µ¥Ö´ÐÐ¹Ø±ÕÁ÷");
+                                System.out.println("查看订单执行关闭流");
                                 DbClose.allClose(pstmt, rs, conn);
                             }
                     break;
 			case 4:
 			        StringBuffer url = request.getRequestURL();
 			        System.out.println("4324234=========="+url.toString());
-					//key=4 ä¯ÀÀÉÌÆ·
+					//key=4 浏览商品
 					String sqlList= "select * from commodity";
 					try
 					{
 						pstmt = conn.prepareStatement(sqlList);
 						rs = pstmt.executeQuery();
-						System.out.println("--4ä¯ÀÀÉÌÆ·Ö´ÐÐÊý¾Ý¿â²Ù×÷--");
+						System.out.println("--4浏览商品执行数据库操作--");
 						if(rs.next())
 						{
-						    rs = pstmt.executeQuery();//ÖØÐÂ²éÑ¯µÄÔ­ÒòÊÇrs.nextÊ±¹â±êÆ«ÒÆºó£¬¶ªµô¼ÇÂ¼¡£
+						    rs = pstmt.executeQuery();//重新查询的原因是rs.next时光标偏移后，丢掉记录。
 							rowSet = new CachedRowSetImpl();
 							rowSet.populate(rs);
 							goods.setRowSet(rowSet);
-							System.out.println("4ä¯ÀÀÉÌÆ·ÒÑ¾­´ÓÊý¾Ý¿âÖÐ»ñÈ¡µ½Öµ£¬²¢Èû½øÐÐ¼¯");
+							System.out.println("4浏览商品已经从数据库中获取到值，并塞进行集");
 							request.getRequestDispatcher("/jsp/browse/showGoods.jsp").forward(request, response);
 						}else 
                         {
                                 out.print("<br><br><br><center>");
-                                out.print("<font color=green> Ç×,Âô¼Ò»¹Ã»ÉÏ»õÄØ </font>");
-                                out.print("<a href=/lyons.eaby/lyons.dao/GoodsDao?key=4><font color=red size=6>½øÈëÊ×Ò³</font></a>");
+                                out.print("<font color=green> 亲,卖家还没上货呢 </font>");
+                                out.print("<a href=/lyons.eaby/lyons.dao/GoodsDao?key=4><font color=red size=6>进入首页</font></a>");
                                 out.print("</center>");     
                             }
 					} catch (SQLException e)

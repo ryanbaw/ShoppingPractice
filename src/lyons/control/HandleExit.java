@@ -38,7 +38,7 @@ public class HandleExit extends HttpServlet
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException
 	{
-		HttpSession session = request.getSession(true);//trueÒ»¶¨ÒªÐ´¡£·ñÔò£¬»ñÈ¡²»µ½µ±Ç°sessionÊ±»á×Ô¶¯´´½¨Ò»¸ö
+		HttpSession session = request.getSession(true);//true一定要写。否则，获取不到当前session时会自动创建一个
 		session.invalidate();
 		response.sendRedirect("/lyons.eaby/jsp/join/login.jsp");
 		

@@ -59,21 +59,21 @@ public class PutGoodsToCar extends HttpServlet
         }else 
             {
                 String[] details = null;
-                details = goods.split(",");//Êý×éÄÚ´¢´æµÄÐÅÏ¢ÓëÊý¾Ý¿âÒ»ÖÂ¡£
+                details = goods.split(",");//数组内储存的信息与数据库一致。
                 
-                //½«ÎïÆ·ÐÅÏ¢·Å½øÄ£ÐÍÖÐ
+                //将物品信息放进模型中
                 HttpSession session = request.getSession(true);
                 Login loginBean = (Login)session.getAttribute("loginBean");
                 LinkedList<String> car = null;
                 car = loginBean.getCar();
-               /* if (request.getAttribute("clear")!=null) //¹ºÎï³µÍê³É½áËã£¬Çå¿ÕÊý¾Ý£¡
+               /* if (request.getAttribute("clear")!=null) //购物车完成结算，清空数据！
                 {
                    car = null;
                 }*/
                 car.add(goods);
                 loginBean.setCar(car);
                 
-                backNews(request, response, details[1]);//²ÎÊýÈý£ºÉÌÆ·ÂðÃû³Æ
+                backNews(request, response, details[1]);//参数三：商品吗名称
             }
      
     }
@@ -81,8 +81,8 @@ public class PutGoodsToCar extends HttpServlet
     
     /**
      * 
-     * ·µ»ØÓÃ»§ÏûÏ¢
-     * Ìí¼Ó¹ºÎï³µ³É¹¦ºó£¬·µ»ØÌáÊ¾²Ù×÷ÐÅÏ¢
+     * 返回用户消息
+     * 添加购物车成功后，返回提示操作信息
      * @param request
      * @param response
      * @param goodsName
@@ -93,11 +93,11 @@ public class PutGoodsToCar extends HttpServlet
         
         PrintWriter out = response.getWriter();
         out.print("<br><br><br>");
-        out.print("<center><font size=5 color=red><B>"+goodsName+"</B></font>&nbsp;ÒÑ³É¹¦Ìí¼Ó¹ºÎï³µ");
+        out.print("<center><font size=5 color=red><B>"+goodsName+"</B></font>&nbsp;已成功添加购物车");
         out.print("<br><br><br>");
-        out.print("<a href=/lyons.eaby/jsp/browse/showGoods.jsp>·µ»Ø¼ÌÐø¹ºÎï</a>");
+        out.print("<a href=/lyons.eaby/jsp/browse/showGoods.jsp>返回继续购物</a>");
         out.print("&nbsp;or&nbsp;");
-        out.print("<a href=/lyons.eaby/jsp/shoppingCar/lookShoppingCar.jsp>²é¿´¹ºÎï³µ</a></center>");
+        out.print("<a href=/lyons.eaby/jsp/shoppingCar/lookShoppingCar.jsp>查看购物车</a></center>");
         
     }
 
