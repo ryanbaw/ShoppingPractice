@@ -29,44 +29,29 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-mkdir src/docroot/WEB-INF/classes
-mkdir src/docroot/WEB-INF/lib
-cd src/classes
-echo "compiling classes directory"
-javac -d ../docroot/WEB-INF/classes demo/*.java
-cd ../taglib
-echo "compiling lib directroy"
-javac -classpath ../docroot/WEB-INF/classes:$CLASSPATH demo/*.java
-echo "creating tag library archive"
-jar cvf ../docroot/WEB-INF/lib/taglib.jar META-INF demo/*.class
-rm demo/*.class
-cd ../docroot
-echo "creating web archive"
-jar cvf ../../javamail.war index.html *.jsp WEB-INF
-rm -r WEB-INF/classes
-rm -r WEB-INF/lib
-cd ../..
-
-
-
-
-mkdir -p WebRoot/WEB-INF/classes/lyons/control
-mkdir -p WebRoot/WEB-INF/classes/lyons/dao
-mkdir -p WebRoot/WEB-INF/classes/lyons/db
-mkdir -p WebRoot/WEB-INF/classes/lyons/entity
-mkdir -p WebRoot/WEB-INF/classes/lyons/goods
-mkdir WebRoot/WEB-INF/lib
-cd src/lyons
-javac -d ../../WebRoot/WEB-INF/classes/lyons/control control/*.java
-javac -d ../../WebRoot/WEB-INF/classes/lyons/dao dao/*.java
-javac -d ../../WebRoot/WEB-INF/classes/lyons/db db/*.java
-javac -d ../../WebRoot/WEB-INF/classes/lyons/entity entity/*.java
-javac -d ../../WebRoot/WEB-INF/classes/lyons/goods goods/*.java
-echo "compiling classes directory"
-
-
-
-cd WebRoot/
-echo "creating web archive"
-jar cvf ../shopsite.war css/  image/  index.jsp  jsp/  META-INF/  navbar.jsp  sql/  WEB-INF/
-cd ..
+case "$1" in
+build)
+	mkdir -p WebRoot/WEB-INF/classes/lyons/control
+	mkdir -p WebRoot/WEB-INF/classes/lyons/dao
+	mkdir -p WebRoot/WEB-INF/classes/lyons/db
+	mkdir -p WebRoot/WEB-INF/classes/lyons/entity
+	mkdir -p WebRoot/WEB-INF/classes/lyons/goods
+	mkdir WebRoot/WEB-INF/lib
+	cd src/lyons
+	javac -d ../../WebRoot/WEB-INF/classes/lyons/control control/*.java
+	javac -d ../../WebRoot/WEB-INF/classes/lyons/dao dao/*.java
+	javac -d ../../WebRoot/WEB-INF/classes/lyons/db db/*.java
+	javac -d ../../WebRoot/WEB-INF/classes/lyons/entity entity/*.java
+	javac -d ../../WebRoot/WEB-INF/classes/lyons/goods goods/*.java
+	echo $"compiling classes directory"
+	cd ../..
+	;;
+clean)
+	rm -rf WebRoot/WEB-INF/classes
+	rm -rf WebRoot/WEB-INF/lib
+  	;;
+*)
+  	echo $"Usage: $0 {build|clean}"
+  	exit 1
+  	;;
+esac
