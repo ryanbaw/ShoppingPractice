@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -38,8 +38,8 @@
 	{
 		color:#fff;
 		background-position:0 -30px;
-    }
-    
+	}
+	
 .user{list-style:none;padding-right:18px; }
 .user li{float:right;}
 .user li a{
@@ -49,18 +49,17 @@
 	line-height:25px;
  }
   
-  </style>
+</style>
   
-  <body>
-   		<div>
-  			<ul class="nav">
-    			<li><a class="on" href="index.jsp?first=FP">首  页</a></li>
-    			<li><a href="lyons.dao/GoodsDao?key=3">我的订单</a></li>
-    			<li><a href="jsp/shoppingCar/lookShoppingCar.jsp"> 购物车</a></li>
-    			<li><a href="lyons.dao/GoodsDao?key=4">浏览商品</a></li>
-    			<li><a href="jsp/browse/searchByKeyWord.jsp">查询商品</a></li>
-    		</ul>
-   		</div>
-  </body>
-
+	<body>
+		<div>
+			<ul class="nav">
+				<li><a class="on" href="index.jsp?first=FP">首  页</a></li>
+				<li><a href="lyons.dao/GoodsDao?key=3">我的订单</a></li>
+				<li><a href="jsp/shoppingCar/lookShoppingCar.jsp"> 购物车</a></li>
+				<li><a href="lyons.dao/GoodsDao?key=4">浏览商品</a></li>
+				<li><a href="jsp/browse/searchByKeyWord.jsp">查询商品</a></li>
+			</ul>
+		</div>
+	</body>
 </html>
