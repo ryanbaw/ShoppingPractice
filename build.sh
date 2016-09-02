@@ -56,6 +56,7 @@ build)
 	;;
 clean)
 	rm -rf $BASE_HOME/WebRoot/WEB-INF/classes/*
+	rm ShoppingPractice.war
   	;;
 *)
   	echo $"Usage: $0 {build|clean}"
