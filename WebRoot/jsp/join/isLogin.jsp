@@ -6,7 +6,7 @@
 	Login Logined = (Login)session.getAttribute("loginBean");
 	if(Logined==null)
 	{
-		response.sendRedirect("lyons.eaby/jsp/join/login.jsp");
+		response.sendRedirect("ShoppingPractice/jsp/join/login.jsp");
 	}
 %>
 

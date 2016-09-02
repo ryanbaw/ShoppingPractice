@@ -28,30 +28,39 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
+BASE_HOME=~/java/X/ShoppingPractice
 
 case "$1" in
 build)
-	mkdir -p WebRoot/WEB-INF/classes/lyons/control
-	mkdir -p WebRoot/WEB-INF/classes/lyons/dao
-	mkdir -p WebRoot/WEB-INF/classes/lyons/db
-	mkdir -p WebRoot/WEB-INF/classes/lyons/entity
-	mkdir -p WebRoot/WEB-INF/classes/lyons/goods
-	mkdir WebRoot/WEB-INF/lib
-	cd src/lyons
-	javac -d ../../WebRoot/WEB-INF/classes/lyons/control control/*.java
-	javac -d ../../WebRoot/WEB-INF/classes/lyons/dao dao/*.java
-	javac -d ../../WebRoot/WEB-INF/classes/lyons/db db/*.java
-	javac -d ../../WebRoot/WEB-INF/classes/lyons/entity entity/*.java
-	javac -d ../../WebRoot/WEB-INF/classes/lyons/goods goods/*.java
-	echo $"compiling classes directory"
-	cd ../..
+	mkdir -p $BASE_HOME/WebRoot/WEB-INF/classes/lyons/control
+	mkdir -p $BASE_HOME/WebRoot/WEB-INF/classes/lyons/dao
+	mkdir -p $BASE_HOME/WebRoot/WEB-INF/classes/lyons/db
+	mkdir -p $BASE_HOME/WebRoot/WEB-INF/classes/lyons/entity
+	mkdir -p $BASE_HOME/WebRoot/WEB-INF/classes/lyons/goods
+	TARGET_DIR=$BASE_HOME/WebRoot/WEB-INF/classes
+	cd $BASE_HOME/src
+	echo $"compiling classes ..."
+	javac -d $TARGET_DIR lyons/db/*.java
+	javac -d $TARGET_DIR lyons/entity/*.java
+	javac -d $TARGET_DIR -classpath lyons/db:lyons/entity:$CLASSPATH lyons/control/*.java
+	javac -d $TARGET_DIR -classpath lyons/db:lyons/entity:$CLASSPATH lyons/dao/*.java
+	javac -d $TARGET_DIR -classpath lyons/db:lyons/entity:$CLASSPATH lyons/goods/*.java
+
+	cd $BASE_HOME/WebRoot
+	
+	echo $"Create war package ..."
+	jar cvf $BASE_HOME/ShoppingPractice.war css image index.jsp jsp META-INF navbar.jsp sql WEB-INF
+
+	cd $BASE_HOME
+	cp ShoppingPractice.war /home/pi/java/WebServ/apache-tomcat-8.0.24/webapps
 	;;
 clean)
-	rm -rf WebRoot/WEB-INF/classes
-	rm -rf WebRoot/WEB-INF/lib
+	rm -rf $BASE_HOME/WebRoot/WEB-INF/classes/*
   	;;
 *)
   	echo $"Usage: $0 {build|clean}"
   	exit 1
   	;;
 esac
+
+

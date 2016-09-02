@@ -122,7 +122,7 @@ public class GoodsDao extends HttpServlet
           {
               out.print("<br>");
               out.print("<center><font color=#008B8B> 登陆之后才能看订单哦  </font>");
-              out.print("<a href=/lyons.eaby/jsp/join/login.jsp><font color=red size=6>登陆</font></a></center>");
+              out.print("<a href=/ShoppingPractice/jsp/join/login.jsp><font color=red size=6>登陆</font></a></center>");
               return;
           }
 		
@@ -172,7 +172,7 @@ public class GoodsDao extends HttpServlet
                                 {
                                     out.print("<br><br><br><center>");
                                     out.print("<font color=green> 亲,查询出错啦.更换关键字再次 </font>");
-                                    out.print("<a href=/lyons.eaby/jsp/browse/searchByKeyWord.jsp><font color=red size=6>查询</font></a>");
+                                    out.print("<a href=/ShoppingPractice/jsp/browse/searchByKeyWord.jsp><font color=red size=6>查询</font></a>");
                                     out.print("</center>");     
                                 }
                         } catch (SQLException e)
@@ -208,7 +208,7 @@ public class GoodsDao extends HttpServlet
                             {
                                 out.print("<br><br><br><center>");
                                 out.print("<font color=green> 亲,订单是空的呢 </font>");
-                                out.print("<a href=/lyons.eaby/lyons.dao/GoodsDao?key=4><font color=red size=6>Go Shopping</font></a>");
+                                out.print("<a href=/ShoppingPractice/lyons.dao/GoodsDao?key=4><font color=red size=6>Go Shopping</font></a>");
                                 out.print("</center>");		
                             }
                     } catch (SQLException e)
@@ -243,13 +243,13 @@ public class GoodsDao extends HttpServlet
                         {
                                 out.print("<br><br><br><center>");
                                 out.print("<font color=green> 亲,卖家还没上货呢 </font>");
-                                out.print("<a href=/lyons.eaby/lyons.dao/GoodsDao?key=4><font color=red size=6>进入首页</font></a>");
+                                out.print("<a href=/ShoppingPractice/lyons.dao/GoodsDao?key=4><font color=red size=6>进入首页</font></a>");
                                 out.print("</center>");     
                             }
 					} catch (SQLException e)
 					{
 						e.printStackTrace();
-						response.sendRedirect("/lyons.eaby/jsp/browse/showGoods.jsp");
+						response.sendRedirect("/ShoppingPractice/jsp/browse/showGoods.jsp");
 					}finally
 							{
 								DbClose.allClose(pstmt, rs, conn);

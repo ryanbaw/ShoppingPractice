@@ -32,7 +32,7 @@
 	width:120px;
 	margin-right:1px;
 	text-align:center;
-	background:url(/lyons.eaby/image/page/nav.png);
+	background:url(/ShoppingPractice/image/page/nav.png);
  }
 .nav li a.on, .nav li a:hover
 	{

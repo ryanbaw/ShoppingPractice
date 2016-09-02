@@ -44,14 +44,14 @@
 			<% request.setCharacterEncoding("UTF-8"); %>
 			<div class="nav">
 			<ul class="clearfix">
-			   <li><a href="/lyons.eaby/index.jsp">首  页</a></li>
+			   <li><a href="/ShoppingPractice/index.jsp">首  页</a></li>
 			</ul>
 			</div>
 			 <div class="bg-div">
 			    <div class="search-box">
 			    <div class="logo"></div>
 			    
-			        <form class="search-form" action="/lyons.eaby/lyons.dao/GoodsDao?key=2" target="_self" id="search-form" method="post">
+			        <form class="search-form" action="/ShoppingPractice/lyons.dao/GoodsDao?key=2" target="_self" id="search-form" method="post">
 			            <input type="text" class="search-text" name="keyWord" id="search_input" autocomplete="off"/>
 			            <input type="hidden" name="key" value="2" />
 			            <input type="submit" class="search-button" value=""/>

@@ -19,7 +19,7 @@
               if(items.size()==0)
               {%>
                     <font color=green> 购物车空空的，抓紧去 </font> 
-                    <a href="/lyons.eaby/lyons.dao/GoodsDao?key=4"><font color=red size=6>购物</font></a> 
+                    <a href="/ShoppingPractice/lyons.dao/GoodsDao?key=4"><font color=red size=6>购物</font></a> 
               <%
                 return;
               }
@@ -49,9 +49,9 @@
 	                       <td><%= item[i]%></td>
 	                <%}
                  totalPrice += Double.parseDouble(item[3]); 
-            %> <td><a href='/lyons.eaby/lyons.goods/DeleteGoodsFromCar?ID=<%= j %>' >删除</a></td></tr><%
+            %> <td><a href='/ShoppingPractice/lyons.goods/DeleteGoodsFromCar?ID=<%= j %>' >删除</a></td></tr><%
               }
-              String backPage = "<a href='/lyons.eaby/jsp/browse/showGoods.jsp'><font color=green><b>继续购物</b></font></a>";
+              String backPage = "<a href='/ShoppingPractice/jsp/browse/showGoods.jsp'><font color=green><b>继续购物</b></font></a>";
            %>
        </table>
       
@@ -59,7 +59,7 @@
            <tr>
               <td colspan=3>合计：<%= totalPrice %> RMB</td>
               <td>
-                    <form action="/lyons.eaby/lyons.goods/BuyGoods" method="post">
+                    <form action="/ShoppingPractice/lyons.goods/BuyGoods" method="post">
                         <input type="submit" value="确认付款"/>
                     </form>
               </td>
