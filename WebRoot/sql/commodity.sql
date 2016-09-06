@@ -1,4 +1,4 @@
--- commodity±í ´¢´æÉÌÆ·ĞÅÏ¢ --
+-- commodityè¡¨ å‚¨å­˜å•†å“ä¿¡æ¯ --
 create table commodity
 (
     commodity_number varchar2(255) primary key,
@@ -9,7 +9,7 @@ create table commodity
     commodity_pic    varchar2(255)not null,
     commodity_id number(11) references classify(gid) not null
 );
--- Îªcommodity±íÖ÷¼ügidÉú³ÉÎ¨Ò» ĞòÁĞ--
+-- ä¸ºcommodityè¡¨ä¸»é”®gidç”Ÿæˆå”¯ä¸€ åºåˆ—--
 create sequence commodity_seq
        start with   1
        increment by 1
@@ -18,7 +18,7 @@ create sequence commodity_seq
        nocycle
        cache        10
        
---´´½¨´¥·¢Æ÷
+--åˆ›å»ºè§¦å‘å™¨
 create trigger commodity_trigger
        before insert on commodity
        for each row 

@@ -1,4 +1,4 @@
--- orderForm¶©µ¥±í --
+-- orderFormè®¢å•è¡¨ --
 
 create table orderForm 
 (
@@ -10,7 +10,7 @@ create table orderForm
      sum number(10) 
 );
 
---Éú³ÉĞòÁĞ
+--ç”Ÿæˆåºåˆ—
 
 CREATE SEQUENCE orderForm_seq
        START WITH      1
@@ -20,7 +20,7 @@ CREATE SEQUENCE orderForm_seq
        NOCYCLE
        CACHE           10;
        
---´¥·¢Æ÷
+--è§¦å‘å™¨
 
 CREATE TRIGGER  orderForm_trigger
        BEFORE INSERT ON orderForm

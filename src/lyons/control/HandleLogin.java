@@ -79,19 +79,16 @@ public class HandleLogin extends HttpServlet
 				//登陆成功
 				success(request,response,username);
 				request.getRequestDispatcher("/jsp/join/landing.jsp").forward(request, response);
-			}else 
-				{
-					String backNews = "用户名或者密码错误";
-					fail(request, response, backNews);
-				}
-		} catch (SQLException e)
-		{
+			} else {
+				String backNews = "用户名或者密码错误";
+				fail(request, response, backNews);
+			}
+		} catch (SQLException e) {
 			String backNews = "登录失败"+e;
 			fail(request, response, backNews);
-		}finally
-			{
-				DbClose.allClose(pstmt, rs, conn);
-			}
+		} finally {
+			DbClose.allClose(pstmt, rs, conn);
+		}
 	}
 	
 	/**

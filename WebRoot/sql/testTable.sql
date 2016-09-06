@@ -1,27 +1,27 @@
 
 
 -- insert into classify
-insert into classify(gname) values('Ğ¬×Ó');
-insert into classify(gname) values('³ÄÉÀ');
-insert into classify(gname) values('ÊÖ»ú');
-insert into classify(gname) values('µç×Ó²úÆ·');
+insert into classify(gname) values('é‹å­');
+insert into classify(gname) values('è¡¬è¡«');
+insert into classify(gname) values('æ‰‹æœº');
+insert into classify(gname) values('ç”µå­äº§å“');
 commit;
 
 drop trigger classify_tigger
 -- insert into commodity
 
-INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('ÎÖÌØÀºÇòĞ¬', '·ğÉ½', 180, 500, '001.jpg',1);
-INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('°²Ì¤ÔË¶¯Ğ¬', '¸£Öİ', 120, 800, '002.jpg',1);
-INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('ÄÍ¿ËÔË¶¯Ğ¬', '¹ãÖİ', 500, 1000, '003.jpg',1);
-INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('°¢µÏ´ïË¹TÑªÉÀ', 'ÉÏº£', 388,600,'004.jpg',2);
-INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('ÀîÄşÎÄ»¯ÉÀ', '¹ãÖİ', 180, 900, '005.jpg',2);
-INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('Ğ¡Ã×3', '±±¾©', 1999, 3000, '006.jpg',3);
-INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('Ğ¡Ã×2S', '±±¾©', 1299, 1000, '007.jpg',3);
-INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('thinkpad±Ê¼Ç±¾', '±±¾©', 6999, 500, '008.jpg',4);
-INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('dell±Ê¼Ç±¾', '±±¾©', 3900, 500, '009.jpg',4);
-INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('ipad5', '±±¾©', 5900, 500, '010.jpg',4);
+INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('æ²ƒç‰¹ç¯®çƒé‹', 'ä½›å±±', 180, 500, '001.jpg',1);
+INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('å®‰è¸è¿åŠ¨é‹', 'ç¦å·', 120, 800, '002.jpg',1);
+INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('è€å…‹è¿åŠ¨é‹', 'å¹¿å·', 500, 1000, '003.jpg',1);
+INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('é˜¿è¿ªè¾¾æ–¯Tè¡€è¡«', 'ä¸Šæµ·', 388,600,'004.jpg',2);
+INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('æå®æ–‡åŒ–è¡«', 'å¹¿å·', 180, 900, '005.jpg',2);
+INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('å°ç±³3', 'åŒ—äº¬', 1999, 3000, '006.jpg',3);
+INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('å°ç±³2S', 'åŒ—äº¬', 1299, 1000, '007.jpg',3);
+INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('thinkpadç¬”è®°æœ¬', 'åŒ—äº¬', 6999, 500, '008.jpg',4);
+INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('dellç¬”è®°æœ¬', 'åŒ—äº¬', 3900, 500, '009.jpg',4);
+INSERT INTO commodity(commodity_name,commodity_made,commodity_price,commodity_balance,commodity_pic,commodity_id) VALUES ('ipad5', 'åŒ—äº¬', 5900, 500, '010.jpg',4);
 
---Drop all table ×¢ÒâÉ¾³ıË³Ğò--
+--Drop all table æ³¨æ„åˆ é™¤é¡ºåº--
 drop trigger commodity_trigger;
 commit;
 drop sequence commodity_seq;

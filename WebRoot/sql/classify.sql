@@ -1,11 +1,11 @@
--- ÉÌÆ··ÖÀà±í --
+-- å•†å“åˆ†ç±»è¡¨ --
 
 create table classify
 (
        gid   number(11) primary key,
        gname varchar2(200) not null
 );
--- Îªclassify±íÖ÷¼ügidÉú³ÉÎ¨Ò» ĞòÁĞ
+-- ä¸ºclassifyè¡¨ä¸»é”®gidç”Ÿæˆå”¯ä¸€ åºåˆ—
 create sequence classify_seq
        start with   1
        increment by 1
@@ -14,7 +14,7 @@ create sequence classify_seq
        nocycle
        cache        10
        
---´´½¨´¥·¢Æ÷
+--åˆ›å»ºè§¦å‘å™¨
 create trigger classify_tigger
        before insert on classify
        for each row 

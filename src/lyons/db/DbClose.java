@@ -12,34 +12,27 @@ public class DbClose
 	 */
 	public static void allClose(PreparedStatement pstmt,ResultSet rs,Connection conn)
 	{
-		try
-		{
-			if (pstmt != null)
-			{
+		try {
+			if (pstmt != null) {
 				pstmt.close();
 			}
-		} catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		try
-		{
-			if (rs != null)
-			{
+
+		try {
+			if (rs != null) {
 				rs.close();
 			}
-		} catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		try
-		{
-			if (conn != null)
-			{
+
+		try {
+			if (conn != null) {
 				conn.close();
 			}
-		} catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -49,62 +42,47 @@ public class DbClose
 	 */
 	public static void close(PreparedStatement pstmt,Connection conn)
 	{
-		try
-		{
-			if (pstmt != null)
-			{
+		try {
+			if (pstmt != null) {
 				pstmt.close();
 			}
-		} catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		try
-		{
-			if (conn != null)
-			{
+
+		try {
+			if (conn != null) {
 				conn.close();
 			}
-		} catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-    public static void close(PreparedStatement pstmtOrder, PreparedStatement pstmtCommodity, Connection conn)
-    {
-        try
-        {
-            if (pstmtOrder != null)
-            {
-                pstmtOrder.close();
-            }
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        
-        try
-        {
-            if (pstmtCommodity != null)
-            {
-                pstmtCommodity.close();
-            }
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }  
-        
-        try
-        {
-            if (conn != null)
-            {
-                conn.close();
-            }
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        
-    }
+	public static void close(PreparedStatement pstmtOrder, PreparedStatement pstmtCommodity, Connection conn)
+	{
+		try {
+			if (pstmtOrder != null) {
+				pstmtOrder.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			if (pstmtCommodity != null) {
+				pstmtCommodity.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			if (conn != null) {
+				conn.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

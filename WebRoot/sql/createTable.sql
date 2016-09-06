@@ -1,11 +1,16 @@
---ÉÌÆ··ÖÀà±í01--
+--å•†å“åˆ†ç±»è¡¨01--
 create table classify
 (
        gid   number(11) primary key,
        gname varchar2(200) not null
 );
+CREATE TABLE classify(
+gid INT NOT NULL,
+gname VARCHAR(255) NOT NULL,
+PRIMARY KEY ( gid )
+);
 
---Îªclassify±íÖ÷¼ügidÉú³ÉÎ¨Ò» ĞòÁĞ--
+--ä¸ºclassifyè¡¨ä¸»é”®gidç”Ÿæˆå”¯ä¸€ åºåˆ—--
 create sequence classify_seq
        start with   1
        increment by 1
@@ -14,7 +19,7 @@ create sequence classify_seq
        nocycle
        cache        10;
       
---´´½¨´¥·¢Æ÷--
+--åˆ›å»ºè§¦å‘å™¨--
 create trigger classify_trigger
        before insert on classify
        for each row 
@@ -24,7 +29,7 @@ create trigger classify_trigger
        
        
        
---commodity±í ´¢´æÉÌÆ·ĞÅÏ¢02--
+--commodityè¡¨ å‚¨å­˜å•†å“ä¿¡æ¯02--
 
 create table commodity
 (
@@ -37,7 +42,7 @@ create table commodity
     commodity_id number(11) references classify(gid) not null
 );
 
---Îªcommodity±íÖ÷¼ügidÉú³ÉÎ¨Ò» ĞòÁĞ--
+--ä¸ºcommodityè¡¨ä¸»é”®gidç”Ÿæˆå”¯ä¸€ åºåˆ—--
 create sequence commodity_seq
        start with   1
        increment by 1
@@ -46,7 +51,7 @@ create sequence commodity_seq
        nocycle
        cache        10;
 
---´´½¨´¥·¢Æ÷--
+--åˆ›å»ºè§¦å‘å™¨--
 create trigger commodity_trigger
        before insert on commodity
        for each row 
@@ -55,7 +60,7 @@ create trigger commodity_trigger
          end;
 
 
---orderForm¶©µ¥±í03 --
+--orderFormè®¢å•è¡¨03 --
 create table orderForm 
 (
      id number(10) primary key,
@@ -66,7 +71,7 @@ create table orderForm
      sum number(10) 
 );
 
---Éú³ÉĞòÁĞ--
+--ç”Ÿæˆåºåˆ—--
 CREATE SEQUENCE orderForm_seq
        START WITH      1
        INCREMENT BY    1
@@ -75,7 +80,7 @@ CREATE SEQUENCE orderForm_seq
        NOCYCLE
        CACHE           10;
       
---´¥·¢Æ÷--
+--è§¦å‘å™¨--
 CREATE TRIGGER  orderForm_trigger
        BEFORE INSERT ON orderForm
        FOR EACH ROW 
@@ -83,18 +88,28 @@ CREATE TRIGGER  orderForm_trigger
            SELECT orderForm_seq.nextval into :new.id FROM dual;
        END;
 
---ÓÃ»§±ívip
+--ç”¨æˆ·è¡¨vip
 create table vip
 (
-       username varchar2(255) primary key,
-       userpass varchar2(255) not null,
-       phone    varchar2(255),
-       address  varchar2(255),
-       realname varchar2(255) 
+        username varchar2(255) primary key,
+        userpass varchar2(255) not null,
+        phone    varchar2(255),
+        address  varchar2(255),
+        realname varchar2(255) 
 );
+
+CREATE TABLE vip(
+username VARCHAR(255) NOT NULL,
+userpass VARCHAR(255) NOT NULL,
+phone VARCHAR(255),
+address VARCHAR(255),
+realname VARCHAR(255),
+PRIMARY KEY ( username )
+);
+DROP TABLE vip;
 
 commit;
 
-INSERT INTO vip(username,userpass,phone,address,realname) VALUES('lyons','123456','15853123329','±±¾©','´ó¸ç')
+INSERT INTO vip(username,userpass,phone,address,realname) VALUES('ryan','justdoit','13530411702','æ·±åœ³','åˆ˜åˆš')
 
 select * from commodity
