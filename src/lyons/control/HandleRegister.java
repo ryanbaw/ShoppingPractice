@@ -82,65 +82,56 @@ public class HandleRegister extends HttpServlet
 		}
 
 		String regex = "[\\d]{11}";
-		if (!(again_userpass.equals(userpass)))
-		{
+		if (!(again_userpass.equals(userpass))) {
 			userBean.setBackNews("两次密码不一致,注册失败");
 			request.getRequestDispatcher("/jsp/join/register.jsp").forward(request, response);
-		}else if (phone!=null&&phone.length()>0&&!phone.matches(regex)) 
-				{
-						userBean.setBackNews("请正确填写11位手机号");
-						request.getRequestDispatcher("/jsp/join/register.jsp").forward(request, response);
-						return;
-				}else 
+		} else if (phone!=null&&phone.length()>0&&!phone.matches(regex)) {
+			userBean.setBackNews("请正确填写11位手机号");
+			request.getRequestDispatcher("/jsp/join/register.jsp").forward(request, response);
+			return;
+		} else {
+			String backNews = ""; 
+			// String regex = "[\\w]{4,16}";
+			// boolean userFlag = username.matches(regex) && userpass.length()>5;
+			boolean userFlag = userpass.length()>5;
+			if (userFlag) {
+				Connection        conn  = null;
+				PreparedStatement pstmt = null;
+				
+				conn = DbConn.getConn();
+				String sql = "INSERT INTO vip(username,userpass,phone,address,realname) VALUES(?,?,?,?,?)";
+				
+				try {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1,username);
+					pstmt.setString(2,userpass); 
+					pstmt.setString(3,phone);
+					pstmt.setString(4,address);
+					pstmt.setString(5,realname);
+					
+					int rs = pstmt.executeUpdate();
+					if (rs > 0)
 					{
-						String backNews = ""; 
-//						String regex = "[\\w]{4,16}";
-//						boolean userFlag = username.matches(regex) && userpass.length()>5;
-						boolean userFlag = userpass.length()>5;
-						if (userFlag)
-						{
-							Connection        conn  = null;
-							PreparedStatement pstmt = null;
-							
-							conn = DbConn.getConn();
-							String sql = "INSERT INTO vip(username,userpass,phone,address,realname) VALUES(?,?,?,?,?)";
-							
-							try
-							{
-								pstmt = conn.prepareStatement(sql);
-								pstmt.setString(1,username);
-								pstmt.setString(2,userpass); 
-								pstmt.setString(3,phone);
-								pstmt.setString(4,address);
-								pstmt.setString(5,realname);
-								
-								int rs = pstmt.executeUpdate();
-								if (rs > 0)
-								{
-									backNews = "注册成功";
-									userBean.setBackNews(backNews);
-									request.getRequestDispatcher("/jsp/join/registerSuccess.jsp").forward(request, response);
-								}
-							} catch (SQLException e)
-							{
-							    System.out.println(e);
-								backNews = "该用户名已被注册"+"<br>";
-								userBean.setBackNews(backNews);
-								request.getRequestDispatcher("/jsp/join/register.jsp").forward(request, response);
-							}finally
-							{
-								DbClose.close(pstmt, conn);
-							}
-						}else 
-						{
-							userBean.setBackNews("密码不合法");
-							request.getRequestDispatcher("/jsp/join/register.jsp").forward(request, response);
-						}
+						backNews = "注册成功";
+						userBean.setBackNews(backNews);
+						request.getRequestDispatcher("/jsp/join/registerSuccess.jsp").forward(request, response);
 					}
+				} catch (SQLException e) {
+				    System.out.println(e);
+					backNews = "该用户名已被注册"+"<br>";
+					userBean.setBackNews(backNews);
+					request.getRequestDispatcher("/jsp/join/register.jsp").forward(request, response);
+				} finally {
+					DbClose.close(pstmt, conn);
+				}
+			} else {
+				userBean.setBackNews("密码不合法");
+				request.getRequestDispatcher("/jsp/join/register.jsp").forward(request, response);
+			}
+		}
 	}
 
 	public void init() throws ServletException
 	{
 	}
-
 }
